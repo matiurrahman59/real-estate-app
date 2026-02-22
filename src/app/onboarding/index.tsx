@@ -32,7 +32,7 @@ export default function OnBoardingFirstScreen() {
           href='/onboarding/final'
           className='bg-primary p-4 px-14 rounded-md'
         >
-          <Text className=' text-white'>let's Start</Text>
+          <Text className=' text-white'>let&apos;s Start</Text>
         </Link>
         <Text className='mt-4 text-white text-[10px]'>Made with love</Text>
         <Text className='text-white font-bold text-[10px]'>v.1.0</Text>
