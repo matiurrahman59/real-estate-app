@@ -23,6 +23,11 @@ module.exports = {
 
         yellow: '#FFC42D',
       },
+      fontFamily: {
+        lato: ['Lato_400Regular'],
+        raleway: ['Raleway_400Regular'],
+        montserrat: ['Montserrat_400Regular'],
+      },
     },
   },
   plugins: [],
