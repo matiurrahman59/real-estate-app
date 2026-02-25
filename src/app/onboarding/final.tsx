@@ -1,18 +1,27 @@
-import { DEVICE, logo, onBoardingData, statusBar } from '@/src/assets/constants'
+import {
+  DEVICE,
+  onBoardingData,
+  OnBoardingDataProps,
+} from '@/src/assets/constants'
+import AppText from '@/src/components/AppText'
+import { useAuthStore } from '@/src/utils/authStore'
+import { logo } from '@/src/utils/images'
 import Feather from '@expo/vector-icons/Feather'
+import { useRouter } from 'expo-router'
 import React, { useRef, useState } from 'react'
 import {
   FlatList,
   Image,
   ImageBackground,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native'
 
 export default function OnboardingFinalScreen() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
+  const { completeOnboarding } = useAuthStore()
   const ref = useRef<FlatList>(null)
+  const router = useRouter()
 
   const updateCurrentSlideIndex = (e) => {
     const contentOffsetX = e.nativeEvent.contentOffset.x
@@ -23,14 +32,14 @@ export default function OnboardingFinalScreen() {
   const goToNextSlide = () => {
     const nextSlideIndex = currentSlideIndex + 1
     if (nextSlideIndex !== onBoardingData.length) {
-      console.log('clicked')
       const offset = nextSlideIndex * DEVICE.width
       ref.current?.scrollToOffset({ offset })
       setCurrentSlideIndex(currentSlideIndex + 1)
+    } else {
+      completeOnboarding()
+      router.replace('/(auth)/signIn')
     }
   }
-
-  console.log('33--', currentSlideIndex)
 
   const goToPreviousSlide = () => {
     const previousSlideIndex = currentSlideIndex - 1
@@ -48,13 +57,19 @@ export default function OnboardingFinalScreen() {
     <View
       className='flex-1 relative'
       style={{
-        marginTop: statusBar,
+        marginTop: DEVICE.statusBar,
       }}
     >
       <View className='flex-row justify-between items-center mx-4'>
-        <Image source={logo} className='h-20 w-20 -ml-2' />
-        <TouchableOpacity className='bg-gray--1 rounded-full h-[38px] w-[86px] flex items-center justify-center'>
-          <Text className='font-montserrat'>skip</Text>
+        <Image source={logo} className='h-24 w-24 -ml-2' />
+        <TouchableOpacity
+          onPress={() => router.replace('/(auth)/login')}
+          className='bg-[#DFDFDF] rounded-full h-[38px] w-[86px] flex items-center justify-center'
+        >
+          {/* <Text className='font-montserrat'>skip</Text> */}
+          <AppText font='montserrat' size='small'>
+            skip
+          </AppText>
         </TouchableOpacity>
       </View>
 
@@ -65,42 +80,50 @@ export default function OnboardingFinalScreen() {
         showsHorizontalScrollIndicator={false}
         onMomentumScrollEnd={updateCurrentSlideIndex}
         data={onBoardingData}
-        renderItem={({ item }) => (
-          <View
-            style={{
-              width: DEVICE.width,
-            }}
-          >
-            <View className='mx-4'>
-              <Text className='text-2xl leading-10 font-lato tracking-widest'>
-                Find best place {'\n'}to stay in
-                <Text className='text-[#204D6C] font-extrabold'>
-                  {' '}
-                  good price
-                </Text>
-              </Text>
-              <Text
-                className='text-xs leading-5 tracking-widest mt-7 font-lato'
-                style={{
-                  width: DEVICE.width * 0.8,
-                }}
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
-              </Text>
-            </View>
-
-            <ImageBackground
-              source={{
-                uri: item.imageUri,
-              }}
+        renderItem={({ item }: { item: OnBoardingDataProps }) => {
+          const title = item.title.split('/n/')
+          return (
+            <View
               style={{
-                width: DEVICE.width - 28,
-                marginHorizontal: 14,
+                width: DEVICE.width,
               }}
-              className='flex-1 justify-end items-center mt-7 rounded-[40px]  mb-4 overflow-hidden'
-            />
-          </View>
-        )}
+            >
+              <View className='mx-4 mt-4'>
+                <AppText className='text-[25px] leading-10 text-black'>
+                  {title[0]}
+                  <AppText
+                    className='text-[25px] font-extrabold'
+                    color='secondary'
+                  >
+                    {' '}
+                    {title[1]}
+                  </AppText>
+                </AppText>
+                <AppText
+                  size='small'
+                  color='secondary'
+                  className='mt-7 leading-5'
+                  style={{
+                    width: DEVICE.width * 0.8,
+                  }}
+                >
+                  {item.subText}
+                </AppText>
+              </View>
+
+              <ImageBackground
+                source={{
+                  uri: item.imageUri,
+                }}
+                style={{
+                  width: DEVICE.width - 28,
+                  marginHorizontal: 14,
+                }}
+                className='flex-1 justify-end items-center mt-7 rounded-[40px]  mb-4 overflow-hidden'
+              />
+            </View>
+          )
+        }}
         keyExtractor={(item) => item.id.toString()}
       />
 
@@ -117,13 +140,18 @@ export default function OnboardingFinalScreen() {
 
           <TouchableOpacity
             onPress={goToNextSlide}
-            className='rounded-2xl bg-primary h-[54px] w-[190px] flex items-center justify-center'
+            className='rounded-2xl bg-green h-[54px] w-[190px] flex items-center justify-center'
           >
-            <Text className='text-white text-base tracking-widest font-bold'>
+            <AppText
+              bold
+              size='medium'
+              color='white'
+              className='tracking-wider'
+            >
               {currentSlideIndex === onBoardingData.length - 1
                 ? 'Get Started'
                 : 'Next'}
-            </Text>
+            </AppText>
           </TouchableOpacity>
         </View>
       </View>

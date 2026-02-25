@@ -34,7 +34,7 @@ export default function RootLayout() {
           <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
         </Stack.Protected>
         <Stack.Protected guard={!isLoggedIn && hasCompleteOnboarding}>
-          <Stack.Screen name='(auth)/login.tsx' />
+          <Stack.Screen name='(auth)' options={{ headerShown: false }} />
         </Stack.Protected>
         <Stack.Protected guard={!hasCompleteOnboarding}>
           <Stack.Screen name='onboarding' options={{ headerShown: false }} />

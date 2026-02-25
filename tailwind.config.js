@@ -8,20 +8,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#8BC83F',
-        secondary: '#234F68',
-        defaultColor: '#252B5C',
-        bodyText: '#53587A',
-
-        // 'gray--1': '#204D6C',
-        // 'dark--1': '#292929',
-
-        'gray--1': '#DFDFDF',
-        'gray--2': '#cccccc',
-        'gray--3': '#F5F4F8',
-        'gray--4': '#A1A5C1',
-
+        primary: '#252B5C',
+        secondary: '#53587A',
+        tertiary: '#234F68',
+        placeholder: '#A1A5C1',
+        green: '#8BC83F',
         yellow: '#FFC42D',
+        gray: '#F5F4F8',
       },
       fontFamily: {
         lato: ['Lato_400Regular'],
