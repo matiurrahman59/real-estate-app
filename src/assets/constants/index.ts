@@ -18,6 +18,7 @@ export interface OnBoardingDataProps {
 
 export const googleIcon = require('../images/Login/Google.png')
 export const facebookIcon = require('../images/Login/Facebook.png')
+export const formImage = require('../images/Login/undraw_city_life.png')
 
 export const onBoardingData: OnBoardingDataProps[] = [
   {
