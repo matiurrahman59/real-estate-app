@@ -38,11 +38,12 @@ export default function LoginForm() {
             name='mail-outline'
             size={20}
             color='#252B5C'
-            className='absolute left-4'
+            className='absolute right-4'
           />
           <TextInput
             placeholder='Email'
-            className='pl-12 py-7 w-full placeholder:text-xs placeholder:text-placeholder'
+            keyboardType='email-address'
+            className='pl-5 py-7 w-full text-sm font-semibold placeholder:text-placeholder'
           />
         </View>
         <View className='mt-4 bg-gray rounded-xl flex-row items-center relative'>
@@ -50,12 +51,12 @@ export default function LoginForm() {
             name={showPassword ? 'lock-open-outline' : 'lock-closed-outline'}
             size={20}
             color='#252B5C'
-            className='absolute left-4'
+            className='absolute right-4'
           />
           <TextInput
             secureTextEntry={!showPassword}
             placeholder='Password'
-            className='pl-12 py-7 w-full placeholder:text-xs placeholder:text-placeholder'
+            className='pl-5 py-7 w-full  text-sm font-semibold placeholder:text-placeholder'
           />
         </View>
 
