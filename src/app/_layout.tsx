@@ -28,7 +28,7 @@ export default function RootLayout() {
 
   return (
     <React.Fragment>
-      <StatusBar style='auto' animated />
+      <StatusBar style='dark' animated />
       <Stack screenOptions={{ headerTitleAlign: 'center' }}>
         <Stack.Protected guard={isLoggedIn}>
           <Stack.Screen name='(tabs)' options={{ headerShown: false }} />

@@ -3,6 +3,9 @@ import { Dimensions, StatusBar } from 'react-native'
 const { width, height } = Dimensions.get('window')
 export const statusBar = StatusBar.currentHeight || 0
 
+export const OTP_LENGTH = 4
+export const CORRECT_OTP = '1234'
+
 export const DEVICE = {
   width,
   height,

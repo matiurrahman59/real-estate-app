@@ -15,6 +15,7 @@ module.exports = {
         green: '#8BC83F',
         yellow: '#FFC42D',
         gray: '#F5F4F8',
+        red: '#EF4444',
       },
       fontFamily: {
         lato: ['Lato_400Regular'],
