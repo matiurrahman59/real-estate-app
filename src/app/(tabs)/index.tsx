@@ -1,5 +1,14 @@
-import { DEVICE } from '@/src/assets/constants'
+import {
+  DEVICE,
+  featureEstateList,
+  topAgents,
+  topLocations,
+} from '@/src/assets/constants'
 import AppText from '@/src/components/AppText'
+import FeaturedEstates from '@/src/components/FeaturedEstates'
+import SectionHeader from '@/src/components/SectionHeader'
+import TopAgents from '@/src/components/TopAgents'
+import TopLocations from '@/src/components/TopLocations'
 import {
   AntDesign,
   Feather,
@@ -20,51 +29,11 @@ import {
   View,
 } from 'react-native'
 
+console.log(topLocations.length)
+
 const userImage = require('../../assets/images/user-1.png')
 
 const categories = ['All', 'House', 'Apartment', 'Modern', 'Villa']
-const featureEstates = [
-  {
-    name: 'Sky Dandelions Apartment',
-    rating: 4.9,
-    location: 'Jakarta, Indonesia',
-    price: 290,
-    imageUri:
-      'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=500&q=60',
-  },
-  {
-    name: 'Sunset Villa Residences',
-    rating: 4.7,
-    location: 'Bali, Indonesia',
-    price: 450,
-    imageUri:
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500&q=60',
-  },
-  {
-    name: 'Green Park Townhouse',
-    rating: 4.8,
-    location: 'Bandung, Indonesia',
-    price: 320,
-    imageUri:
-      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=500&q=60',
-  },
-  {
-    name: 'Ocean Breeze Condo',
-    rating: 4.6,
-    location: 'Surabaya, Indonesia',
-    price: 210,
-    imageUri:
-      'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=500&q=60',
-  },
-  {
-    name: 'Golden Heights Tower',
-    rating: 4.5,
-    location: 'Medan, Indonesia',
-    price: 380,
-    imageUri:
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=500&q=60',
-  },
-]
 
 export default function HomeScreen() {
   const [selectedCategories, setSelectedCategories] = useState('All')
@@ -166,73 +135,73 @@ export default function HomeScreen() {
       </View>
 
       {/* feature estates */}
-      <View>
-        <View className='flex-row items-center justify-between px-5 mt-6 mb-5'>
-          <AppText bold size='large'>
-            Featured Estates
-          </AppText>
-          <TouchableOpacity>
-            <AppText font='raleway' color='tertiary' className='font-semibold'>
-              view all
-            </AppText>
-          </TouchableOpacity>
-        </View>
+      <View className='mt-6'>
+        <SectionHeader title='featured Estates' buttonText='view all' />
+        <FeaturedEstates featureEstateList={featureEstateList} />
+      </View>
 
-        {/* feature items */}
-        <FlatList
-          data={featureEstates}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item, index }) => (
-            <TouchableOpacity
-              className={` ${featureEstates.length - 1 === index && 'pr-5'} pl-5`}
+      {/* top locations */}
+      <View className='mt-9'>
+        <SectionHeader title='Top Locations' buttonText='explore' />
+        <TopLocations topLocations={topLocations} />
+      </View>
+
+      {/* top locations */}
+      <View className='mt-9'>
+        <SectionHeader title='Top Estate Agent' buttonText='explore' />
+        <TopAgents topAgents={topAgents} />
+      </View>
+
+      {/* nearby estates */}
+      <View className='mt-9'>
+        <SectionHeader title='Explore Nearby Estates' />
+        <View className='mx-5 flex-row flex-wrap gap-2'>
+          {featureEstateList.map((item, index) => (
+            <View
+              key={index}
+              className='bg-gray rounded-3xl'
+              style={{
+                width: (DEVICE.width / 2) * 0.88,
+                overflow: 'hidden',
+              }}
             >
-              <View className='bg-gray rounded-3xl'>
-                <View className='p-2 flex-row gap-3'>
+              <View className='p-2'>
+                <View>
                   <Image
                     source={{
                       uri: item.imageUri,
                     }}
-                    className='h-[140px] w-[134px] rounded-3xl'
+                    className='w-full h-40 rounded-xl'
                   />
-                  <View className='max-w-32 justify-between py-2'>
-                    <View className='gap-2'>
-                      <AppText bold font='raleway' size='small'>
-                        {item.name}
+                </View>
+                <View className='pt-[10px] px-2'>
+                  <AppText bold size='xs' font='raleway'>
+                    {item.name}
+                  </AppText>
+                  <View className='flex-row items-center gap-[6px] mt-[10px]'>
+                    <View className='flex-row items-center gap-1'>
+                      <AntDesign name='star' size={10} color='#FFC42D' />
+                      <AppText bold font='montserrat' className='text-[10px]'>
+                        {item.rating}
                       </AppText>
-                      <View className='flex-row items-center gap-1'>
-                        <AntDesign name='star' size={12} color='#FFC42D' />
-
-                        <AppText bold font='raleway' size='xs'>
-                          {item.rating}
-                        </AppText>
-                      </View>
-                      <View className='flex-row gap-0.5 items-center'>
-                        <Ionicons name='location' size={12} color='#234F68' />
-                        <AppText
-                          font='raleway'
-                          color='secondary'
-                          className='text-[10px]'
-                        >
-                          {item.location}
-                        </AppText>
-                      </View>
                     </View>
-
-                    <View className='flex-row items-baseline'>
-                      <AppText font='montserrat' bold>
-                        $ {item.price}
-                      </AppText>
-                      <AppText font='montserrat' size='xs'>
-                        /month
+                    <View className='flex-row gap-0.5 items-center'>
+                      <Ionicons name='location' size={10} color='#234F68' />
+                      <AppText
+                        font='raleway'
+                        color='secondary'
+                        className='text-[10px]'
+                        numberOfLines={2}
+                      >
+                        {item.location.city}
                       </AppText>
                     </View>
                   </View>
                 </View>
               </View>
-            </TouchableOpacity>
-          )}
-        />
+            </View>
+          ))}
+        </View>
       </View>
     </ScrollView>
   )

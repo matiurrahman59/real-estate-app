@@ -10,6 +10,7 @@ type AppTextProps = {
   font?: 'lato' | 'raleway' | 'montserrat'
   className?: string
   style?: StyleProp<TextStyle>
+  numberOfLines?: number
 }
 
 export default function AppText({
@@ -21,6 +22,7 @@ export default function AppText({
   center = false,
   className,
   style,
+  numberOfLines,
 }: AppTextProps) {
   return (
     <Text
@@ -44,6 +46,7 @@ export default function AppText({
         className,
       )}
       style={style}
+      numberOfLines={numberOfLines}
     >
       {children}
     </Text>
