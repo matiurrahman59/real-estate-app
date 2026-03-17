@@ -1,23 +1,29 @@
 import {
   DEVICE,
   featureEstateList,
-  topAgents,
-  topLocations,
-} from '@/src/assets/constants'
-import AppText from '@/src/components/AppText'
-import FeaturedEstates from '@/src/components/FeaturedEstates'
-import SectionHeader from '@/src/components/SectionHeader'
-import TopAgents from '@/src/components/TopAgents'
-import TopLocations from '@/src/components/TopLocations'
+  OfferEstateList,
+  topAgentList,
+  topLocationList,
+} from '@/src/assets/constants';
+import { COLORS } from '@/src/assets/constants/colors';
+
+import AppText from '@/src/components/AppText';
+import FeaturedEstates from '@/src/components/FeaturedEstates';
+import NearbyEstates from '@/src/components/NearbyEstates';
+import OfferEstates from '@/src/components/OfferEstates';
+
+import SectionHeader from '@/src/components/SectionHeader';
+import TopAgents from '@/src/components/TopAgents';
+import TopLocations from '@/src/components/TopLocations';
 import {
-  AntDesign,
   Feather,
   FontAwesome,
   Ionicons,
   SimpleLineIcons,
-} from '@expo/vector-icons'
-import Fontisto from '@expo/vector-icons/Fontisto'
-import React, { useState } from 'react'
+} from '@expo/vector-icons';
+import Fontisto from '@expo/vector-icons/Fontisto';
+import { Link } from 'expo-router';
+import React, { useState } from 'react';
 import {
   FlatList,
   Image,
@@ -27,20 +33,19 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from 'react-native'
+} from 'react-native';
 
-console.log(topLocations.length)
+const userImage = require('../../../assets/images/user-1.png');
 
-const userImage = require('../../assets/images/user-1.png')
-
-const categories = ['All', 'House', 'Apartment', 'Modern', 'Villa']
+const categories = ['All', 'House', 'Apartment', 'Modern', 'Villa'];
 
 export default function HomeScreen() {
-  const [selectedCategories, setSelectedCategories] = useState('All')
+  const [selectedCategories, setSelectedCategories] = useState('All');
 
   return (
     <ScrollView className='bg-white'>
       <View className='bg-placeholder absolute -right-28 -top-60 h-80 w-80 rounded-full' />
+      {/* location & user profile icon */}
       <View
         className='flex-row items-center justify-between px-5'
         style={{
@@ -56,7 +61,7 @@ export default function HomeScreen() {
         <View className='flex-row items-center justify-center gap-3'>
           <View className='border-2 border-green bg-white rounded-full h-[50px] w-[50px] items-center justify-center'>
             <View className='relative'>
-              <Fontisto name='bell' size={20} color='#252B5C' />
+              <Fontisto name='bell' size={20} color={COLORS.primary} />
               <View className='h-3 w-3 bg-white absolute -right-[2px] -top-[2px] items-center justify-center'>
                 <View className='h-[6px] w-[6px] rounded-full bg-red' />
               </View>
@@ -70,6 +75,19 @@ export default function HomeScreen() {
         </View>
       </View>
 
+      <View>
+        <Link href='/(tabs)/(home)/NotificationScreen'>
+          <Text>Go to notification screen</Text>
+        </Link>
+      </View>
+
+      <View>
+        <Link href='/(tabs)/(home)/EstateDetailScreen'>
+          <Text>EstateDetailScreen</Text>
+        </Link>
+      </View>
+
+      {/* heading text */}
       <View className='mt-7 px-5'>
         <AppText className='text-[25px]'>
           Hey,{' '}
@@ -78,9 +96,10 @@ export default function HomeScreen() {
           </AppText>
         </AppText>
         {/* <Text>Hey, Jonathan!</Text> */}
-        <AppText className='text-[25px]'>Let's start exploring</AppText>
+        <AppText className='text-[25px]'>Lets start exploring</AppText>
       </View>
 
+      {/* Search input */}
       <View className='mt-5 mx-5 relative'>
         <Feather
           name='search'
@@ -107,7 +126,7 @@ export default function HomeScreen() {
         />
       </View>
 
-      {/* Filter buttons */}
+      {/* Filter buttons group */}
       <View className='mt-5'>
         <FlatList
           data={categories}
@@ -134,6 +153,11 @@ export default function HomeScreen() {
         />
       </View>
 
+      {/* offer sale section */}
+      <View className='mt-8'>
+        <OfferEstates offerEstatesList={OfferEstateList} />
+      </View>
+
       {/* feature estates */}
       <View className='mt-6'>
         <SectionHeader title='featured Estates' buttonText='view all' />
@@ -143,66 +167,22 @@ export default function HomeScreen() {
       {/* top locations */}
       <View className='mt-9'>
         <SectionHeader title='Top Locations' buttonText='explore' />
-        <TopLocations topLocations={topLocations} />
+        <TopLocations topLocations={topLocationList} />
       </View>
 
-      {/* top locations */}
+      {/* top agents */}
       <View className='mt-9'>
         <SectionHeader title='Top Estate Agent' buttonText='explore' />
-        <TopAgents topAgents={topAgents} />
+        <TopAgents topAgents={topAgentList} />
       </View>
 
       {/* nearby estates */}
       <View className='mt-9'>
         <SectionHeader title='Explore Nearby Estates' />
-        <View className='mx-5 flex-row flex-wrap gap-2'>
-          {featureEstateList.map((item, index) => (
-            <View
-              key={index}
-              className='bg-gray rounded-3xl'
-              style={{
-                width: (DEVICE.width / 2) * 0.88,
-                overflow: 'hidden',
-              }}
-            >
-              <View className='p-2'>
-                <View>
-                  <Image
-                    source={{
-                      uri: item.imageUri,
-                    }}
-                    className='w-full h-40 rounded-xl'
-                  />
-                </View>
-                <View className='pt-[10px] px-2'>
-                  <AppText bold size='xs' font='raleway'>
-                    {item.name}
-                  </AppText>
-                  <View className='flex-row items-center gap-[6px] mt-[10px]'>
-                    <View className='flex-row items-center gap-1'>
-                      <AntDesign name='star' size={10} color='#FFC42D' />
-                      <AppText bold font='montserrat' className='text-[10px]'>
-                        {item.rating}
-                      </AppText>
-                    </View>
-                    <View className='flex-row gap-0.5 items-center'>
-                      <Ionicons name='location' size={10} color='#234F68' />
-                      <AppText
-                        font='raleway'
-                        color='secondary'
-                        className='text-[10px]'
-                        numberOfLines={2}
-                      >
-                        {item.location.city}
-                      </AppText>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-          ))}
+        <View className='mx-5'>
+          <NearbyEstates nearbyEstateList={featureEstateList} />
         </View>
       </View>
     </ScrollView>
-  )
+  );
 }
