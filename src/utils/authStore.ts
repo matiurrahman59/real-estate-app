@@ -1,15 +1,15 @@
-import { deleteItemAsync, getItem, setItem } from 'expo-secure-store'
-import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import { deleteItemAsync, getItem, setItem } from 'expo-secure-store';
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 type UserState = {
-  isLoggedIn: boolean
-  login: () => void
-  logout: () => void
-  hasCompleteOnboarding: boolean
-  completeOnboarding: () => void
-  resetOnboarding: () => void
-}
+  isLoggedIn: boolean;
+  login: () => void;
+  logout: () => void;
+  hasCompleteOnboarding: boolean;
+  completeOnboarding: () => void;
+  resetOnboarding: () => void;
+};
 
 export const useAuthStore = create(
   persist<UserState>(
@@ -18,35 +18,36 @@ export const useAuthStore = create(
       hasCompleteOnboarding: false,
       login: () => {
         set((state) => {
+          console.log('--login--');
           return {
             ...state,
             isLoggedIn: true,
-          }
-        })
+          };
+        });
       },
       logout: () => {
         set((state) => {
           return {
             ...state,
             isLoggedIn: false,
-          }
-        })
+          };
+        });
       },
       completeOnboarding: () => {
         set((state) => {
           return {
             ...state,
             hasCompleteOnboarding: true,
-          }
-        })
+          };
+        });
       },
       resetOnboarding: () => {
         set((state) => {
           return {
             ...state,
             hasCompleteOnboarding: false,
-          }
-        })
+          };
+        });
       },
     }),
     {
@@ -58,4 +59,4 @@ export const useAuthStore = create(
       })),
     },
   ),
-)
+);

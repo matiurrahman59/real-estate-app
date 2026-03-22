@@ -22,7 +22,7 @@ import {
   SimpleLineIcons,
 } from '@expo/vector-icons';
 import Fontisto from '@expo/vector-icons/Fontisto';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import React, { useState } from 'react';
 import {
   FlatList,
@@ -59,14 +59,17 @@ export default function HomeScreen() {
         </TouchableOpacity>
 
         <View className='flex-row items-center justify-center gap-3'>
-          <View className='border-2 border-green bg-white rounded-full h-[50px] w-[50px] items-center justify-center'>
+          <TouchableOpacity
+            onPress={() => router.push('/(protected)/notificationScreen')}
+            className='border-2 border-green bg-white rounded-full h-[50px] w-[50px] items-center justify-center'
+          >
             <View className='relative'>
               <Fontisto name='bell' size={20} color={COLORS.primary} />
               <View className='h-3 w-3 bg-white absolute -right-[2px] -top-[2px] items-center justify-center'>
                 <View className='h-[6px] w-[6px] rounded-full bg-red' />
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
 
           <Image
             source={userImage}

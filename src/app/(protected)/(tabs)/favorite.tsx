@@ -1,10 +1,10 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-export default function CallScreen() {
+export default function Favorite() {
   return (
     <View>
-      <Text>CallScreen</Text>
+      <Text>Favorite</Text>
     </View>
   );
 }

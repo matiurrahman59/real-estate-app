@@ -5,8 +5,8 @@ export default function TabLayout() {
   return (
     <Tabs screenOptions={{ headerTitleAlign: 'center' }}>
       <Tabs.Screen
-        name='(home)'
-        options={{ title: 'Home', headerShown: false }}
+        name='index'
+        options={{ headerShown: false, popToTopOnBlur: true }}
       />
       <Tabs.Screen name='search' options={{ title: 'Search' }} />
       <Tabs.Screen name='favorite' options={{ title: 'Favorite' }} />

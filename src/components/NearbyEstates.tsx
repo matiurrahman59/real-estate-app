@@ -39,7 +39,7 @@ const NearbyEstates: FC<NearbyEstatesProps> = ({ nearbyEstateList }) => {
         <TouchableOpacity
           onPress={() =>
             router.push({
-              pathname: '/(tabs)/(home)/EstateDetailScreen',
+              pathname: '/(protected)/propertyDetailsScreen',
               params: {
                 id: item.id,
               },
