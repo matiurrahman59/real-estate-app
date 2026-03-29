@@ -22,7 +22,7 @@ import {
   SimpleLineIcons,
 } from '@expo/vector-icons';
 import Fontisto from '@expo/vector-icons/Fontisto';
-import { Link, router } from 'expo-router';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import {
   FlatList,
@@ -76,18 +76,6 @@ export default function HomeScreen() {
             className='border-2 border-gray rounded-full h-[50px] w-[50px]'
           />
         </View>
-      </View>
-
-      <View>
-        <Link href='/(tabs)/(home)/NotificationScreen'>
-          <Text>Go to notification screen</Text>
-        </Link>
-      </View>
-
-      <View>
-        <Link href='/(tabs)/(home)/EstateDetailScreen'>
-          <Text>EstateDetailScreen</Text>
-        </Link>
       </View>
 
       {/* heading text */}

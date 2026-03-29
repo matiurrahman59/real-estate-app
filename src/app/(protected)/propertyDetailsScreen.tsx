@@ -66,7 +66,9 @@ export default function EstateDetailScreen() {
       {isButtonVisible && (
         <View className='w-full bg-white py-5 items-center absolute z-50 bottom-0'>
           <Pressable className='bg-green rounded-lg items-center justify-center w-[80vw] h-[60px]'>
-            <Text>Buy Now</Text>
+            <AppText bold size='medium' color='white'>
+              Buy Now
+            </AppText>
           </Pressable>
         </View>
       )}

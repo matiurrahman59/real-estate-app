@@ -1,12 +1,12 @@
-import { TouchableOpacity, View } from 'react-native'
-import AppText from './AppText'
+import { TouchableOpacity, View } from 'react-native';
+import AppText from './AppText';
 
-import { FC } from 'react'
+import { FC } from 'react';
 
 interface SectionHeaderProps {
-  title: string
-  buttonText?: string
-  onPress?: () => void
+  title: string;
+  buttonText?: string;
+  onPress?: () => void;
 }
 
 const SectionHeader: FC<SectionHeaderProps> = ({
@@ -15,7 +15,7 @@ const SectionHeader: FC<SectionHeaderProps> = ({
   onPress,
 }) => {
   return (
-    <View className='flex-row items-center justify-between px-5 mb-5'>
+    <View className='mx-5 flex-row items-center justify-between mb-5'>
       <AppText bold size='large'>
         {title}
       </AppText>
@@ -25,7 +25,7 @@ const SectionHeader: FC<SectionHeaderProps> = ({
         </AppText>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
-export default SectionHeader
+export default SectionHeader;

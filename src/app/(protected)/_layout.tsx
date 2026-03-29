@@ -12,7 +12,7 @@ export default function ProtectedLayout() {
         name='propertyDetailsScreen'
         options={{ headerShown: false }}
       />
-      <Stack.Screen name='notificationScreen' />
+      <Stack.Screen name='notificationScreen' options={{ headerTitle: '' }} />
     </Stack>
   );
 }
