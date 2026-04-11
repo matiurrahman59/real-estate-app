@@ -26,8 +26,8 @@ export default function NotificationScreen() {
         Animated.spring(slideAnim, {
           toValue: tab === 'notification' ? 0 : 1,
           useNativeDriver: true,
-          tension: 70,
-          friction: 11,
+          tension: 40,
+          friction: 6,
         }),
         Animated.timing(fadeAnim, {
           toValue: 1,

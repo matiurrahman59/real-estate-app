@@ -34,7 +34,7 @@ import {
   View,
 } from 'react-native';
 
-const rotateIcon = require('../../../src/assets/images/rotate-360.png');
+// const rotateIcon = require('../../../src/assets/images/rotate-360.png');
 
 export default function EstateDetailScreen() {
   const { id } = useLocalSearchParams();
@@ -189,9 +189,21 @@ export default function EstateDetailScreen() {
             </View>
           </View>
 
-          <View className='h-[50px] w-[50px] rounded-full bg-gray items-center justify-center'>
-            <Image source={rotateIcon} />
-          </View>
+          <TouchableOpacity
+            onPress={() => router.push('/(protected)/property360ViewScreen')}
+            className='h-[50px] w-[50px] rounded-full bg-gray items-center justify-center'
+          >
+            {/* <Image source={rotateIcon} /> */}
+            <AppText color='tertiary' className='mb-3'>
+              360
+            </AppText>
+            <MaterialCommunityIcons
+              name='rotate-360'
+              size={22}
+              color='#234F68'
+              className='absolute bottom-2'
+            />
+          </TouchableOpacity>
         </View>
 
         {/* seperator */}

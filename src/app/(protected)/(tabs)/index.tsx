@@ -9,8 +9,8 @@ import { COLORS } from '@/src/assets/constants/colors';
 
 import AppText from '@/src/components/AppText';
 import FeaturedEstates from '@/src/components/FeaturedEstates';
-import NearbyEstates from '@/src/components/NearbyEstates';
 import OfferEstates from '@/src/components/OfferEstates';
+import PropertyCard from '@/src/components/PropertyCard';
 
 import SectionHeader from '@/src/components/SectionHeader';
 import TopAgents from '@/src/components/TopAgents';
@@ -171,7 +171,7 @@ export default function HomeScreen() {
       <View className='mt-9'>
         <SectionHeader title='Explore Nearby Estates' />
         <View className='mx-5'>
-          <NearbyEstates nearbyEstateList={featureEstateList} />
+          <PropertyCard propertyList={featureEstateList} />
         </View>
       </View>
     </ScrollView>

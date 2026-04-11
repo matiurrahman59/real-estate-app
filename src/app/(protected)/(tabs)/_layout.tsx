@@ -1,16 +1,19 @@
+import tabbedScreenOptions from '@/src/components/tabbedScreenOptions';
 import { Tabs } from 'expo-router';
-import React from 'react';
 
 export default function TabLayout() {
   return (
-    <Tabs screenOptions={{ headerTitleAlign: 'center' }}>
+    <Tabs screenOptions={tabbedScreenOptions}>
       <Tabs.Screen
         name='index'
         options={{ headerShown: false, popToTopOnBlur: true }}
       />
       <Tabs.Screen name='search' options={{ title: 'Search' }} />
       <Tabs.Screen name='favorite' options={{ title: 'Favorite' }} />
-      <Tabs.Screen name='profile' options={{ title: 'Profile' }} />
+      <Tabs.Screen
+        name='profile'
+        options={{ title: 'Profile', headerTitleAlign: 'center' }}
+      />
     </Tabs>
   );
 }

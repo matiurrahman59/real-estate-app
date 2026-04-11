@@ -1,12 +1,40 @@
+import { Ionicons } from '@expo/vector-icons';
+import { Stack } from 'expo-router';
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Alert, Image, TouchableOpacity, View } from 'react-native';
 import { topAgentList, topLocations } from '../assets/constants';
 import AppText from './AppText';
 import SectionHeader from './SectionHeader';
 
 export default function NotificationList() {
+  const handleDeleteAll = () => {
+    Alert.alert(
+      'Delete all',
+      'Are you sure you want to delete all of your notifications?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => {},
+          style: 'cancel',
+        },
+        { text: 'OK', onPress: () => console.log('Clear notifications') },
+      ],
+    );
+  };
   return (
     <>
+      <Stack.Screen
+        options={{
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => handleDeleteAll()}
+              className='h-11 w-11 rounded-full bg-gray items-center justify-center'
+            >
+              <Ionicons name='notifications-off' size={16} color='black' />
+            </TouchableOpacity>
+          ),
+        }}
+      />
       <View className='mt-5'>
         <View className='mx-5 flex-row items-center gap-3'>
           <View className='bg-primary items-center justify-center py-4 px-6 rounded-3xl'>
