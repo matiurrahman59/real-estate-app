@@ -710,7 +710,7 @@ export const dhakaEstateList = [
     rating: 4.3,
     price: 28000,
     coverImage:
-      'https://images.unsplash.com/photo-1560185008-a33f5f6f7b0a?w=800',
+      'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800',
     images: [
       'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800',
       'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800',

@@ -1,6 +1,6 @@
 import { DEVICE } from '@/src/assets/constants';
 import { MaterialIcons } from '@expo/vector-icons';
-import { BlurView } from 'expo-blur';
+import { BlurTargetView, BlurView } from 'expo-blur';
 import { useRouter } from 'expo-router';
 import React, { useRef } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -16,6 +16,8 @@ export default function Property360ViewScreen() {
   const insets = useSafeAreaInsets();
   const webViewRef = useRef<WebView>(null);
   const router = useRouter();
+
+  const targetRef = useRef<View | null>(null);
 
   const sendCommand = (js: string) => {
     webViewRef.current?.injectJavaScript(`${js}; true;`);
@@ -86,30 +88,11 @@ export default function Property360ViewScreen() {
 `;
 
   return (
-    <View className='flex-1'>
+    <View className='flex-1 relative'>
       {/* <StatusBar barStyle='light-content' backgroundColor='#0a0a0a' /> */}
-
-      {/* Panorama WebView */}
-      <WebView
-        ref={webViewRef}
-        source={{ html }}
-        style={{
-          width: DEVICE.width,
-          height: DEVICE.height,
-        }}
-        scrollEnabled={false}
-        bounces={false}
-        allowsInlineMediaPlayback
-        mediaPlaybackRequiresUserAction={false}
-        javaScriptEnabled
-        domStorageEnabled
-        originWhitelist={['*']}
-        mixedContentMode='always'
-      />
-
       {/* Header overlay */}
       <View
-        className='absolute mx-6'
+        className='absolute z-50 mx-6'
         style={{
           marginTop: DEVICE.statusBar,
         }}
@@ -122,29 +105,83 @@ export default function Property360ViewScreen() {
         </TouchableOpacity>
       </View>
 
+      {/* Panorama WebView */}
+      <BlurTargetView
+        ref={targetRef}
+        style={{
+          flex: 1,
+        }}
+      >
+        <WebView
+          ref={webViewRef}
+          source={{ html }}
+          style={{
+            width: DEVICE.width,
+            height: DEVICE.height,
+          }}
+          scrollEnabled={false}
+          bounces={false}
+          allowsInlineMediaPlayback
+          mediaPlaybackRequiresUserAction={false}
+          javaScriptEnabled
+          domStorageEnabled
+          originWhitelist={['*']}
+          mixedContentMode='always'
+        />
+      </BlurTargetView>
+
       <BlurView
-        tint='dark'
-        intensity={100} // "light" | "dark" | "extraDark" | "regular"
-        className='h-20 w-10 absolute top-1/2'
-      />
-      {/* <View className='w-10 h-20 bg-primary absolute top-1/2 rounded-r-xl'></View> */}
-      {/* <SafeAreaView style={styles.headerOverlay} pointerEvents='box-none'>
-        <View style={styles.header}>
-          <TouchableOpacity
-            style={styles.backBtn}
-            onPress={() => router.back()}
-          >
-            <Text style={styles.backArrow}>←</Text>
-          </TouchableOpacity>
-          <View style={styles.titleContainer}>
-            <Text style={styles.label360}>360°</Text>
-            <Text style={styles.titleText}>Virtual Tour</Text>
-          </View>
-          <TouchableOpacity style={styles.resetBtn} onPress={resetView}>
-            <Text style={styles.resetIcon}>⊙</Text>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView> */}
+        blurTarget={targetRef}
+        intensity={30}
+        tint='light'
+        style={{
+          width: 40,
+          height: 83,
+          position: 'absolute',
+          top: '50%',
+          left: 0,
+          transform: [{ translateY: -21 }],
+          overflow: 'hidden',
+          borderTopRightRadius: 20,
+          borderBottomRightRadius: 20,
+        }}
+        blurMethod='dimezisBlurView'
+      >
+        <TouchableOpacity className='flex-1 items-center justify-center z-20'>
+          <MaterialIcons
+            name='keyboard-double-arrow-left'
+            size={22}
+            color='white'
+            className='z-10'
+          />
+        </TouchableOpacity>
+      </BlurView>
+
+      <BlurView
+        blurTarget={targetRef}
+        intensity={30}
+        tint='light'
+        style={{
+          width: 40,
+          height: 83,
+          position: 'absolute',
+          top: '50%',
+          right: 0,
+          transform: [{ translateY: -21 }],
+          overflow: 'hidden',
+          borderTopLeftRadius: 20,
+          borderBottomLeftRadius: 20,
+        }}
+        blurMethod='dimezisBlurView'
+      >
+        <TouchableOpacity className='flex-1 items-center justify-center'>
+          <MaterialIcons
+            name='keyboard-double-arrow-right'
+            size={22}
+            color='white'
+          />
+        </TouchableOpacity>
+      </BlurView>
 
       {/* Directional Controls */}
       <View style={styles.controlsWrapper} pointerEvents='box-none'>

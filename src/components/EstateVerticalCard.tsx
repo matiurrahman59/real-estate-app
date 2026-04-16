@@ -5,7 +5,7 @@ import { FlatList, Image, TouchableOpacity, View } from 'react-native';
 import { DEVICE } from '../assets/constants';
 import AppText from './AppText';
 
-interface property {
+interface estate {
   id: number;
   name: string;
   rating: number;
@@ -43,18 +43,18 @@ interface property {
   }[];
 }
 
-interface propertyProps {
-  propertyList: property[];
-}
-
-export default function PropertyCard({ propertyList }: propertyProps) {
+export default function EstateVerticalCard({
+  estateList,
+}: {
+  estateList: estate[];
+}) {
   const router = useRouter();
 
   return (
     <FlatList
-      data={propertyList}
-      // scrollEnabled={false}
-      showsVerticalScrollIndicator={false}
+      data={estateList}
+      scrollEnabled={true}
+      showsVerticalScrollIndicator={true}
       numColumns={2}
       columnWrapperStyle={{
         justifyContent: 'space-between',
@@ -111,7 +111,7 @@ export default function PropertyCard({ propertyList }: propertyProps) {
             </View>
 
             {/* name & details */}
-            <View className='pt-[10px] px-2'>
+            <View className='flex-1 pt-[10px] px-2'>
               <AppText bold size='xs' font='raleway'>
                 {item.name}
               </AppText>

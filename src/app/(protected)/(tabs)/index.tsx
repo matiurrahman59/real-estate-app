@@ -1,6 +1,6 @@
 import {
   DEVICE,
-  featureEstateList,
+  dhakaEstateList,
   OfferEstateList,
   topAgentList,
   topLocationList,
@@ -8,7 +8,6 @@ import {
 import { COLORS } from '@/src/assets/constants/colors';
 
 import AppText from '@/src/components/AppText';
-import FeaturedEstates from '@/src/components/FeaturedEstates';
 import OfferEstates from '@/src/components/OfferEstates';
 import PropertyCard from '@/src/components/PropertyCard';
 
@@ -152,7 +151,7 @@ export default function HomeScreen() {
       {/* feature estates */}
       <View className='mt-6'>
         <SectionHeader title='featured Estates' buttonText='view all' />
-        <FeaturedEstates featureEstateList={featureEstateList} />
+        {/* <FeaturedEstates featureEstateList={featureEstateList} /> */}
       </View>
 
       {/* top locations */}
@@ -171,7 +170,7 @@ export default function HomeScreen() {
       <View className='mt-9'>
         <SectionHeader title='Explore Nearby Estates' />
         <View className='mx-5'>
-          <PropertyCard propertyList={featureEstateList} />
+          <PropertyCard propertyList={dhakaEstateList} />
         </View>
       </View>
     </ScrollView>

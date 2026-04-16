@@ -8,7 +8,10 @@ export default function TabLayout() {
         name='index'
         options={{ headerShown: false, popToTopOnBlur: true }}
       />
-      <Tabs.Screen name='search' options={{ title: 'Search' }} />
+      <Tabs.Screen
+        name='search'
+        options={{ title: 'Search results', headerTitleAlign: 'center' }}
+      />
       <Tabs.Screen name='favorite' options={{ title: 'Favorite' }} />
       <Tabs.Screen
         name='profile'
