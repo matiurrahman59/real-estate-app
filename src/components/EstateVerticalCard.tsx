@@ -1,9 +1,10 @@
-import { AntDesign, EvilIcons, Ionicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { FlatList, Image, TouchableOpacity, View } from 'react-native';
-import { DEVICE } from '../assets/constants';
+import { useAuthStore } from '../utils/authStore';
 import AppText from './AppText';
+import BookmarkButton from './BookmarkButton';
 
 interface estate {
   id: number;
@@ -45,41 +46,48 @@ interface estate {
 
 export default function EstateVerticalCard({
   estateList,
+  scrollEnabled = false,
 }: {
   estateList: estate[];
+  scrollEnabled?: boolean;
 }) {
   const router = useRouter();
+  const { favoriteProperties } = useAuthStore();
 
   return (
     <FlatList
       data={estateList}
-      scrollEnabled={true}
-      showsVerticalScrollIndicator={true}
+      scrollEnabled={scrollEnabled}
+      showsVerticalScrollIndicator={false}
       numColumns={2}
       columnWrapperStyle={{
-        justifyContent: 'space-between',
+        gap: 7,
       }}
       contentContainerStyle={{
-        gap: 8,
+        gap: 10,
       }}
-      renderItem={({ item, index }) => (
-        <TouchableOpacity
-          onPress={() =>
-            router.push({
-              pathname: '/(protected)/propertyDetailsScreen',
-              params: {
-                id: item.id,
-              },
-            })
-          }
-          key={index}
-          className='bg-gray rounded-3xl'
-          style={{
-            width: (DEVICE.width / 2) * 0.88,
-            overflow: 'hidden',
-          }}
-        >
-          <View className='p-2'>
+      renderItem={({ item, index }) => {
+        const isFavorite = favoriteProperties.some(
+          (property) => property.id === item.id,
+        );
+        return (
+          <TouchableOpacity
+            onPress={() =>
+              router.push({
+                pathname: '/(protected)/propertyDetailsScreen',
+                params: {
+                  id: item.id,
+                },
+              })
+            }
+            key={index}
+            className='bg-gray p-2 rounded-3xl flex-1'
+          >
+            <BookmarkButton
+              item={item}
+              isFavorite={isFavorite}
+              className='absolute right-4 top-4 z-10'
+            />
             <View className='relative'>
               <Image
                 source={{
@@ -103,11 +111,6 @@ export default function EstateVerticalCard({
                   </AppText>
                 </View>
               </View>
-
-              {/* bookMark Icon */}
-              <TouchableOpacity className='absolute right-2 top-2 h-8 w-8 rounded-full items-center justify-center bg-white'>
-                <EvilIcons name='heart' size={16} color='#EF4444' />
-              </TouchableOpacity>
             </View>
 
             {/* name & details */}
@@ -134,9 +137,9 @@ export default function EstateVerticalCard({
                 </View>
               </View>
             </View>
-          </View>
-        </TouchableOpacity>
-      )}
+          </TouchableOpacity>
+        );
+      }}
     />
   );
 }

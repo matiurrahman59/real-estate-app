@@ -3,9 +3,10 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { FlatList, Image, TouchableOpacity, View } from 'react-native';
 import { DEVICE } from '../assets/constants';
+import { useAuthStore } from '../utils/authStore';
 import AppText from './AppText';
 
-interface property {
+type property = {
   id: number;
   name: string;
   rating: number;
@@ -41,19 +42,23 @@ interface property {
     rating: number;
     comment: string;
   }[];
-}
+};
 
-interface propertyProps {
+export default function PropertyCard({
+  propertyList,
+  scrollEnabled = false,
+}: {
   propertyList: property[];
-}
-
-export default function PropertyCard({ propertyList }: propertyProps) {
+  scrollEnabled?: boolean;
+}) {
   const router = useRouter();
+  const { addToFavorites, removeFromFavorites, favoriteProperties } =
+    useAuthStore();
 
   return (
     <FlatList
       data={propertyList}
-      // scrollEnabled={false}
+      scrollEnabled={scrollEnabled}
       showsVerticalScrollIndicator={false}
       numColumns={2}
       columnWrapperStyle={{
@@ -105,7 +110,16 @@ export default function PropertyCard({ propertyList }: propertyProps) {
               </View>
 
               {/* bookMark Icon */}
-              <TouchableOpacity className='absolute right-2 top-2 h-8 w-8 rounded-full items-center justify-center bg-white'>
+              <TouchableOpacity
+                onPress={() => {
+                  if (favoriteProperties.includes(item)) {
+                    removeFromFavorites(item.id);
+                  } else {
+                    addToFavorites(item);
+                  }
+                }}
+                className='absolute right-2 top-2 h-8 w-8 rounded-full items-center justify-center bg-white'
+              >
                 <EvilIcons name='heart' size={16} color='#EF4444' />
               </TouchableOpacity>
             </View>

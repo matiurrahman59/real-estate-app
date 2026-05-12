@@ -3,7 +3,9 @@ import React from 'react';
 
 export default function ProtectedLayout() {
   return (
-    <Stack screenOptions={{ headerTitleAlign: 'center' }}>
+    <Stack
+      screenOptions={{ headerTitleAlign: 'center', headerShadowVisible: false }}
+    >
       <Stack.Screen
         name='(tabs)'
         options={{ title: 'Home', headerShown: false }}
@@ -16,14 +18,24 @@ export default function ProtectedLayout() {
         name='property360ViewScreen'
         options={{ headerShown: false }}
       />
+      <Stack.Screen name='topLocation' options={{ headerTitle: '' }} />
+      <Stack.Screen
+        name='topLocationDetails'
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name='topAgent' options={{ headerTitle: '' }} />
+      <Stack.Screen
+        name='topAgentDetails'
+        options={{ headerTitle: 'Profile' }}
+      />
       <Stack.Screen name='notificationScreen' options={{ headerTitle: '' }} />
       <Stack.Screen
         name='editProfileScreen'
-        options={{ headerTitle: 'Edit Profile', headerShadowVisible: false }}
+        options={{ headerTitle: 'Edit Profile' }}
       />
       <Stack.Screen
         name='userReviewScreen'
-        options={{ headerTitle: 'All reviews', headerShadowVisible: false }}
+        options={{ headerTitle: 'All reviews' }}
       />
     </Stack>
   );

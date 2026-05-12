@@ -58,7 +58,7 @@ export default function NotificationList() {
           <View className='mx-5 bg-gray p-3 flex-row gap-3 rounded-3xl'>
             <Image
               source={{
-                uri: topAgentList[0].imageUri,
+                uri: topAgentList[0].image,
               }}
               className='h-12 w-12 rounded-full border-2 border-white'
             />
@@ -80,7 +80,7 @@ export default function NotificationList() {
           <View className='mx-5 bg-gray p-3 flex-row gap-3 rounded-3xl'>
             <Image
               source={{
-                uri: topAgentList[1].imageUri,
+                uri: topAgentList[1].image,
               }}
               className='h-12 w-12 rounded-full border-2 border-white'
             />
@@ -109,7 +109,7 @@ export default function NotificationList() {
           <View className='mx-5 bg-gray p-3 flex-row gap-3 rounded-3xl'>
             <Image
               source={{
-                uri: topAgentList[2].imageUri,
+                uri: topAgentList[2].image,
               }}
               className='h-12 w-12 rounded-full border-2 border-white'
             />
@@ -142,7 +142,7 @@ export default function NotificationList() {
           <View className='bg-gray p-3 flex-row gap-3 rounded-3xl'>
             <Image
               source={{
-                uri: topAgentList[2].imageUri,
+                uri: topAgentList[2].image,
               }}
               className='h-12 w-12 rounded-full border-2 border-white'
             />

@@ -1,17 +1,15 @@
-import { FC } from 'react'
-import { FlatList, Image, TouchableOpacity, View } from 'react-native'
-import AppText from './AppText'
+import { useRouter } from 'expo-router';
+import { FlatList, Image, TouchableOpacity, View } from 'react-native';
+import AppText from './AppText';
 
-interface TopAgent {
-  name: string
-  imageUri: string
-}
+type agentProps = {
+  name: string;
+  phone: string;
+  image: string;
+}[];
 
-interface TopAgentsProps {
-  topAgents: TopAgent[]
-}
-
-const TopAgents: FC<TopAgentsProps> = ({ topAgents }) => {
+export const TopAgents = ({ topAgents }: { topAgents: agentProps }) => {
+  const router = useRouter();
   return (
     <FlatList
       horizontal
@@ -22,11 +20,20 @@ const TopAgents: FC<TopAgentsProps> = ({ topAgents }) => {
         <TouchableOpacity
           key={index}
           className={`items-center ${index === 0 && 'ml-5'} ${topAgents.length - 1 === index && 'mr-5'}`}
+          onPress={() =>
+            router.push({
+              pathname: '/(protected)/topAgentDetails',
+              params: {
+                agentName: item.name,
+                agentRanking: index + 1,
+              },
+            })
+          }
         >
           <View className='bg-gray h-[70px] w-[70px] rounded-full p-1'>
             <Image
               source={{
-                uri: item.imageUri,
+                uri: item.image,
               }}
               className='h-full w-full rounded-full'
             />
@@ -37,7 +44,5 @@ const TopAgents: FC<TopAgentsProps> = ({ topAgents }) => {
         </TouchableOpacity>
       )}
     />
-  )
-}
-
-export default TopAgents
+  );
+};

@@ -8,11 +8,11 @@ import {
 import { COLORS } from '@/src/assets/constants/colors';
 
 import AppText from '@/src/components/AppText';
+import EstateVerticalCard from '@/src/components/EstateVerticalCard';
 import OfferEstates from '@/src/components/OfferEstates';
-import PropertyCard from '@/src/components/PropertyCard';
 
 import SectionHeader from '@/src/components/SectionHeader';
-import TopAgents from '@/src/components/TopAgents';
+import { TopAgents } from '@/src/components/TopAgents';
 import TopLocations from '@/src/components/TopLocations';
 import {
   Feather,
@@ -21,7 +21,7 @@ import {
   SimpleLineIcons,
 } from '@expo/vector-icons';
 import Fontisto from '@expo/vector-icons/Fontisto';
-import { router } from 'expo-router';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
   FlatList,
@@ -40,6 +40,7 @@ const categories = ['All', 'House', 'Apartment', 'Modern', 'Villa'];
 
 export default function HomeScreen() {
   const [selectedCategories, setSelectedCategories] = useState('All');
+  const router = useRouter();
 
   return (
     <ScrollView className='bg-white'>
@@ -150,27 +151,43 @@ export default function HomeScreen() {
 
       {/* feature estates */}
       <View className='mt-6'>
-        <SectionHeader title='featured Estates' buttonText='view all' />
+        <View className='px-5'>
+          <SectionHeader title='featured Estates' buttonText='view all' />
+        </View>
         {/* <FeaturedEstates featureEstateList={featureEstateList} /> */}
       </View>
 
       {/* top locations */}
-      <View className='mt-9'>
-        <SectionHeader title='Top Locations' buttonText='explore' />
+      <View className='mt-9 gap-5'>
+        <View className='px-5'>
+          <SectionHeader
+            title='Top Locations'
+            buttonText='explore'
+            onPress={() => router.push('/(protected)/topLocation')}
+          />
+        </View>
         <TopLocations topLocations={topLocationList} />
       </View>
 
       {/* top agents */}
-      <View className='mt-9'>
-        <SectionHeader title='Top Estate Agent' buttonText='explore' />
+      <View className='mt-9 gap-5'>
+        <View className='px-5'>
+          <SectionHeader
+            title='Top Estate Agent'
+            buttonText='explore'
+            onPress={() => router.push('/(protected)/topAgent')}
+          />
+        </View>
         <TopAgents topAgents={topAgentList} />
       </View>
 
       {/* nearby estates */}
-      <View className='mt-9'>
-        <SectionHeader title='Explore Nearby Estates' />
+      <View className='mt-9 gap-5'>
+        <View className='px-5'>
+          <SectionHeader title='Explore Nearby Estates' />
+        </View>
         <View className='mx-5'>
-          <PropertyCard propertyList={dhakaEstateList} />
+          <EstateVerticalCard estateList={dhakaEstateList} />
         </View>
       </View>
     </ScrollView>

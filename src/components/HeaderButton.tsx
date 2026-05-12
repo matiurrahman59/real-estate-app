@@ -21,7 +21,7 @@ export default function HeaderButton({
   return (
     <TouchableOpacity
       onPress={onPress}
-      className={cn('rounded-full bg-gray items-center justify-center mx-5')}
+      className={cn('rounded-full bg-gray items-center justify-center')}
       style={{
         height: Size,
         width: Size,

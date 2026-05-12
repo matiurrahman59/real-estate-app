@@ -1,17 +1,19 @@
-import { FC } from 'react'
-import { FlatList, Image, TouchableOpacity, View } from 'react-native'
-import AppText from './AppText'
+import { useRouter } from 'expo-router';
+import { FC } from 'react';
+import { FlatList, Image, TouchableOpacity, View } from 'react-native';
+import AppText from './AppText';
 
 interface TopLocation {
-  name: string
-  imageUri: string
+  name: string;
+  imageUri: string;
 }
 
 interface TopLocationsProps {
-  topLocations: TopLocation[]
+  topLocations: TopLocation[];
 }
 
 const TopLocations: FC<TopLocationsProps> = ({ topLocations }) => {
+  const router = useRouter();
   return (
     <FlatList
       horizontal
@@ -22,6 +24,12 @@ const TopLocations: FC<TopLocationsProps> = ({ topLocations }) => {
         <TouchableOpacity
           key={index}
           className={`bg-gray rounded-[50px] ${index === 0 && 'ml-5'} ${topLocations.length - 1 === index && 'mr-5'}`}
+          onPress={() =>
+            router.push({
+              pathname: '/(protected)/topLocationDetails',
+              params: { locationName: item.name, locationRank: index + 1 },
+            })
+          }
         >
           <View className='flex-row items-center gap-2 p-2'>
             <Image
@@ -38,7 +46,7 @@ const TopLocations: FC<TopLocationsProps> = ({ topLocations }) => {
         </TouchableOpacity>
       )}
     />
-  )
-}
+  );
+};
 
-export default TopLocations
+export default TopLocations;

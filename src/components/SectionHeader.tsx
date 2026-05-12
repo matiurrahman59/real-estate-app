@@ -15,7 +15,7 @@ const SectionHeader: FC<SectionHeaderProps> = ({
   onPress,
 }) => {
   return (
-    <View className='mx-5 flex-row items-center justify-between mb-5'>
+    <View className='flex-row items-center justify-between'>
       <AppText bold size='large'>
         {title}
       </AppText>

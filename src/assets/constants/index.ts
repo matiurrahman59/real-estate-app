@@ -300,38 +300,38 @@ export const topLocationList = [
   },
 ];
 
-export const topAgentList = [
-  {
-    name: 'Rahman',
-    imageUri:
-      'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&q=60',
-  },
-  {
-    name: 'Fatema',
-    imageUri:
-      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&q=60',
-  },
-  {
-    name: 'Karim',
-    imageUri:
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=60',
-  },
-  {
-    name: 'Nusrat',
-    imageUri:
-      'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&q=60',
-  },
-  {
-    name: 'Shakil',
-    imageUri:
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=60',
-  },
-  {
-    name: 'Riya',
-    imageUri:
-      'https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?w=500&q=60',
-  },
-];
+// export const topAgentList = [
+//   {
+//     name: 'Rahman',
+//     imageUri:
+//       'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&q=60',
+//   },
+//   {
+//     name: 'Fatema',
+//     imageUri:
+//       'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&q=60',
+//   },
+//   {
+//     name: 'Karim',
+//     imageUri:
+//       'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=60',
+//   },
+//   {
+//     name: 'Nusrat',
+//     imageUri:
+//       'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&q=60',
+//   },
+//   {
+//     name: 'Shakil',
+//     imageUri:
+//       'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=60',
+//   },
+//   {
+//     name: 'Riya',
+//     imageUri:
+//       'https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?w=500&q=60',
+//   },
+// ];
 
 export const dhakaEstateList = [
   {
@@ -828,3 +828,5 @@ export const dhakaEstateList = [
     ],
   },
 ];
+
+export const topAgentList = dhakaEstateList.map((property) => property.agent);

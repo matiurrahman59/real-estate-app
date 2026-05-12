@@ -12,9 +12,10 @@ import { default as PropertyReviewLists } from '@/src/components/PropertyReviewL
 import ReviewSummaryCard from '@/src/components/ReviewSummaryCard';
 import SecondaryButton from '@/src/components/SecondaryButton';
 import SectionHeader from '@/src/components/SectionHeader';
+import TouchableButton from '@/src/components/TouchableButton';
+import { useAuthStore } from '@/src/utils/authStore';
 import {
   AntDesign,
-  Feather,
   FontAwesome5,
   Ionicons,
   MaterialCommunityIcons,
@@ -34,13 +35,16 @@ import {
   View,
 } from 'react-native';
 
-// const rotateIcon = require('../../../src/assets/images/rotate-360.png');
-
 export default function EstateDetailScreen() {
   const { id } = useLocalSearchParams();
   const property = dhakaEstateList.find((item) => item.id === Number(id));
   const [coverImage, setCoverImage] = useState(property?.coverImage);
   const [isButtonVisible, setIsButtonVisible] = useState(true);
+  const { addToFavorites, removeFromFavorites, favoriteProperties } =
+    useAuthStore();
+  const isFavorite = favoriteProperties.find(
+    (property) => property.id.toString() === id,
+  );
 
   if (!property) {
     return (
@@ -90,24 +94,36 @@ export default function EstateDetailScreen() {
               marginTop: DEVICE.statusBar,
             }}
           >
-            <TouchableOpacity
+            {/* back button */}
+            <TouchableButton
               onPress={() => router.back()}
-              className='h-[50px] w-[50px] bg-white items-center justify-center rounded-full'
-            >
-              <MaterialIcons
-                name='keyboard-arrow-left'
-                size={18}
-                color='black'
-              />
-            </TouchableOpacity>
+              iconName='chevron-back-outline'
+              iconColor='black'
+              iconSize={18}
+            />
 
             <View className='flex-row items-center gap-4'>
-              <TouchableOpacity className='h-[50px] w-[50px] bg-white items-center justify-center rounded-full'>
-                <Feather name='upload' size={18} color='black' />
-              </TouchableOpacity>
-              <TouchableOpacity className='h-[50px] w-[50px] bg-white items-center justify-center rounded-full'>
-                <AntDesign name='heart' size={18} color='black' />
-              </TouchableOpacity>
+              {/* upload button */}
+              <TouchableButton
+                iconName='cloud-upload-outline'
+                iconSize={18}
+                iconColor='black'
+              />
+
+              {/* favorite icon */}
+              <TouchableButton
+                iconName={isFavorite ? 'heart' : 'heart-outline'}
+                iconSize={18}
+                iconColor={isFavorite ? 'white' : '#EF4444'}
+                className={isFavorite ? 'bg-green' : 'bg-white'}
+                onPress={() => {
+                  if (favoriteProperties.includes(property)) {
+                    removeFromFavorites(property.id);
+                  } else {
+                    addToFavorites(property);
+                  }
+                }}
+              />
             </View>
           </View>
 
@@ -150,7 +166,7 @@ export default function EstateDetailScreen() {
         </View>
 
         {/* property details */}
-        <View className='mt-3 mx-6 flex-row justify-between'>
+        <View className='mt-3 mx-5 flex-row justify-between'>
           {/* name & location */}
           <View className='flex-1 gap-1'>
             <AppText bold className='text-xl'>
@@ -175,7 +191,7 @@ export default function EstateDetailScreen() {
           </View>
         </View>
 
-        <View className='mt-5 mx-6 flex-row items-center justify-between'>
+        <View className='mt-5 mx-5 flex-row items-center justify-between'>
           <View className='flex-row gap-6'>
             <View className='py-4 px-6 bg-green self-start rounded-[20px]'>
               <AppText bold font='raleway' size='xs' color='white'>
@@ -207,10 +223,10 @@ export default function EstateDetailScreen() {
         </View>
 
         {/* seperator */}
-        <View className='h-0.5 bg-gray mt-6 mx-6' />
+        <View className='h-0.5 bg-gray mt-6 mx-5' />
 
         {/* agent profile */}
-        <View className='mt-5 mx-6 p-6 bg-gray flex-row items-center justify-between rounded-[20px]'>
+        <View className='mt-5 mx-5 p-6 bg-gray flex-row items-center justify-between rounded-[20px]'>
           <View className='flex-row items-center gap-6'>
             <Image
               source={{
@@ -252,8 +268,10 @@ export default function EstateDetailScreen() {
 
         {/*property location & facilities */}
         <View className=' mt-[35px]'>
-          <SectionHeader title='Location & Public Facilities' />
-          <View className='mx-6'>
+          <View className='px-5'>
+            <SectionHeader title='Location & Public Facilities' />
+          </View>
+          <View className='mx-5'>
             {/* location */}
             <View className='mt-5 flex-row items-center gap-[15px]'>
               <View className='h-[50px] w-[50px] bg-gray items-center justify-center rounded-full'>
@@ -307,7 +325,7 @@ export default function EstateDetailScreen() {
         </View>
 
         {/* property location */}
-        <View className='mx-6 mt-[18px]'>
+        <View className='mx-5 mt-[18px]'>
           <PropertyMapView
             propertyName={property.name}
             propertyLocation={property.location}
@@ -316,7 +334,9 @@ export default function EstateDetailScreen() {
 
         {/* living cost */}
         <View className='mt-8'>
-          <SectionHeader title='Cost of Living' buttonText='view details' />
+          <View className='px-5'>
+            <SectionHeader title='Cost of Living' buttonText='view details' />
+          </View>
           <View className='mx-6 mt-4 py-6 pl-4 rounded-3xl bg-gray'>
             <View className='flex-row items-center'>
               <AppText bold size='large' font='montserrat'>
@@ -333,8 +353,8 @@ export default function EstateDetailScreen() {
         </View>
 
         {/* customer reviews */}
-        <View className='mt-8 mx-4'>
-          <SectionHeader title='reviews' />
+        <View className='mt-8 mx-5'>
+          <SectionHeader title='Reviews' />
           <ReviewSummaryCard />
           <PropertyReviewLists reviews={property.reviews} />
           <SecondaryButton label='View All reviews' />
@@ -342,15 +362,13 @@ export default function EstateDetailScreen() {
 
         {/* nearby property from this location */}
         <View
-          className='mt-10'
+          className='mt-10 px-5 gap-5'
           style={{
             marginBottom: DEVICE.statusBar,
           }}
         >
           <SectionHeader title='Nearby From this Location' />
-          <View className='mx-5'>
-            <NearbyEstates nearbyEstateList={featureEstateList} />
-          </View>
+          <NearbyEstates nearbyEstateList={featureEstateList} />
         </View>
       </ScrollView>
     </View>
